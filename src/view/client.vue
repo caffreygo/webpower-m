@@ -169,7 +169,7 @@ export default {
             width: 100%;
 
             .client-list{
-                min-height: 800px;
+                min-height: 600px;
                 width: 100%;
                 box-sizing: border-box;
                 padding: 52px 35px;

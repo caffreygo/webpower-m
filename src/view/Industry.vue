@@ -18,8 +18,8 @@
             <ul class="content-list">
                 <router-link :to= "{ path: '/case/CaseContent', query: { slug: item.slug }}" v-for="(item, index) in dataList" :key="index">
                     <li>
-                        <img :src="item.thumbnail_url" alt="">
-                        <p>{{item.title.rendered}}</p>
+                        <img :src="pcUrl + item.img_src" alt="">
+                        <p>{{item.title}}</p>
                     </li>
                 </router-link>
             </ul>
@@ -33,6 +33,7 @@ export default {
     name: '',
     data () {
         return {
+            pcUrl: 'http://www.webpowerchina.com/',
             navName: [
                 {
                     name: '全部',
@@ -296,6 +297,7 @@ export default {
 
         .content-box{
             width: 100%;
+            min-height: 600px;
 
             .content-list{
                 width: 100%;
