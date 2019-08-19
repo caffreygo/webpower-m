@@ -7,10 +7,10 @@
         </div>
 
         <div class="Custom-list">
-            <router-link :to="item.url" v-for="(item, index) in data" :key="index">
+            <router-link :to="item.link" v-for="(item, index) in data" :key="index">
                 <div class="box" >
-                    <img class="bigImg" :src=item.headImg alt="">
-                    <p>{{item.name}}</p>
+                    <img class="bigImg" :src=item.picture alt="">
+                    <p>{{item.service}}</p>
                     <img class="CustomJiantou" src="/static/img/CustomJiantou.png" alt="">
                 </div>
             </router-link>
@@ -28,35 +28,19 @@ export default {
     name: '',
     data () {
         return {
-            data:[
-                {
-                    headImg: '/static/img/CustomImg1.png',
-                    name: '会员营销策划',
-                    url: '/case/CaseContent?slug=pc0628'
-                },
-                {
-                    headImg: '/static/img/CustomImg2.png',
-                    name: '创意设计',
-                    url: '/case/CaseContent?slug=yjcy0628'
-                },
-                {
-                    headImg: '/static/img/CustomImg3.png',
-                    name: '推广引流',
-                    url: '/case/CaseContent?slug=hnw0628-2'
-                },
-                {
-                    headImg: '/static/img/CustomImg4.png',
-                    name: '网站建设及优化',
-                    url: '/case/CaseContent?slug=hnw0628-1'
-                },
-                {
-                    headImg: '/static/img/CustomImg5.png',
-                    name: 'Minisite开发',
-                    url: '/case/CaseContent?slug=schk0628'
-                }
-            ]
+            data: []
         };
     },
+
+    mounted(){
+        this.$ajax({
+            method: 'get',
+            url: 'http://m.webpowerchina.kooboo.site/service/get'
+        }).then(res => {
+            this.data = res.data
+        }).then(err => {
+        })
+    }
 
 }
 </script>

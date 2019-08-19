@@ -7,7 +7,7 @@
         </div>
         <div class="about-introduce-box">
             <div class="about-introduce">
-                <video poster="/static/img/aboutVideo.png" controls="controls" src="http://www.webpowerchina.com/wp-content/themes/wp-site/assets/video/abc.Ogg" class="aboutMP4"></video>
+                <video poster="/static/img/aboutVideo.png" controls="controls" src="http://www.webpowerchina.kooboo.site/wp-content/themes/wp-site/assets/video/abc.Ogg" class="aboutMP4"></video>
                 <p>Webpower于1999年在荷兰成立，2006年进入中国，目前已在全球各地设有11个分支机构。</p>
                 <p>作为全渠道智能化会员营销服务商，Webpower在中国扎根发展的十余年里，始终关注企业的多维营销需求，不断输出各种创新、前沿、实效的营销产品及服务。2018年，Webpower推出”智慧营销”体系，为企业打造从全渠道数据连接、营销自动化、多维数据分析到场景应用及定制开发的营销闭环。</p>
                 <p>Webpower现已为零售、IT、旅游、航空、会展、金融等10大行业提供专业营销服务，其中包括：星巴克、SONY、沃尔玛、GIVENCHY、人头马、华为、联想、Disney、东方航空、星展银行、太平洋保险等全球知名的企业。</p>

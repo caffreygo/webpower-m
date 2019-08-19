@@ -33,7 +33,7 @@ export default {
     name: '',
     data () {
         return {
-            pcUrl: 'http://www.webpowerchina.com/',
+            pcUrl: 'http://www.webpowerchina.kooboo.site',
             navName: [
                 {
                     name: '全部',

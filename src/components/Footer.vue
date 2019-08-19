@@ -31,9 +31,6 @@ export default {
     return {
       email: "",
       emailTF: true,
-      pcUrl: "http://webpowerchina2.kooboo.cn",
-      // wpUrl: 'https://wpcn-enews.webpower.asia/admin/api/index.php/rest/',
-      // campaignId: 212,
       token: "",
       id: "",
       data: null
@@ -42,37 +39,37 @@ export default {
   methods: {
     emailCheck: function() {
       let re = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
-      var _ = this;
+      var _this = $(this);
       if (re.test(this.email) && this.emailTF) {
-        this.data = {
+        _this.data = {
           contact: {
             email: this.email,
             lang: "zh"
           }
         };
         $.ajax({
-          url: _.pcUrl + "/user/subscribe",
+          url: "http://m.webpowerchina.kooboo.site/user/subscribe",
           method: "get",
           success: function(res) {
+
             // add contact
-            _.token = JSON.parse(res).access_token;
+            _this.token = JSON.parse(res).access_token
             $.ajax({
-              url:
-                "https://wpcn-enews.webpower.asia/admin/api/index.php/rest/212/contact/subscribe",
-              method: "post",
-              data: JSON.stringify(_.data),
-              beforeSend: function(request) {
-                request.setRequestHeader("Authorization", "Bearer " + _.token);
-              },
-              success: function(res) {
-                _.$store.state.emailText = _.email;
-                _.$store.state.subSucc = true;
-                _.emailTF = true;
-              },
-              fail: function(err) {
-                _.emailTF = true;
-              }
-            });
+                url: "https://wpcn-enews.webpower.asia/admin/api/index.php/rest/212/contact/subscribe",
+                method: 'post',
+                data: JSON.stringify(_this.data),
+                beforeSend: function(request) {
+                  request.setRequestHeader("Authorization", "Bearer " + _this.token);
+                },
+                success: function(res) {
+                  _this.$store.state.emailText = _this.email;
+                  _this.$store.state.subSucc = true;
+                  _this.emailTF = true;
+                },
+                fail: function(err) {
+                  _this.emailTF = true;
+                }
+            })
           },
           fail: function(err) {
             console.error("can not get token");

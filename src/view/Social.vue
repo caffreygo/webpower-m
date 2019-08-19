@@ -7,10 +7,10 @@
         </div>
 
         <div class="Social-list">
-            <router-link :to="item.url" v-for="(item, index) in data" :key="index">
+            <router-link :to="item.link" v-for="(item, index) in data" :key="index">
                 <div class="box" >
-                    <img class="bigImg" :src=item.headImg alt="">
-                    <p>{{item.name}}</p>
+                    <img class="bigImg" :src=item.picture alt="">
+                    <p>{{item.title}}</p>
                     <img class="SocialJiantou" src="/static/img/SocialJiantou.png" alt="">
                 </div>
             </router-link>
@@ -28,30 +28,19 @@ export default {
     name: '',
     data () {
         return {
-            data:[
-                {
-                    headImg: '/static/img/SocialImg1.png',
-                    name: '社会化营销活动案例',
-                    url: '/case/CaseContent?slug=cz0628'
-                },
-                {
-                    headImg: '/static/img/SocialImg2.png',
-                    name: 'H5互动创意案例',
-                    url: '/case/CaseContent?slug=nl0628'
-                },
-                {
-                    headImg: '/static/img/SocialImg3.png',
-                    name: '小程序开发案例',
-                    url: '/case/CaseContent?slug=my0628'
-                },
-                {
-                    headImg: '/static/img/SocialImg4.png',
-                    name: '社交广告投放案例',
-                    url: '/case/CaseContent?slug=nlcg0628'
-                }
-            ]
+            data:[]
         };
     },
+
+    mounted(){
+        this.$ajax({
+            method: 'get',
+            url: 'http://m.webpowerchina.kooboo.site/social/get'
+        }).then(res => {
+            this.data = res.data
+        }).then(err => {
+        })
+    }
 
 }
 </script>
@@ -131,7 +120,7 @@ export default {
         .subBtn{
             width: 668px;
             height: 96px;
-            background-color: #2aad7b;
+            background-color: #e5803c;
             text-align: center;
             font-size: 36px;
             color: #fff;
