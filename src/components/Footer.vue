@@ -62,12 +62,12 @@ export default {
                   request.setRequestHeader("Authorization", "Bearer " + _this.token);
                 },
                 success: function(res) {
-                  _this.$store.state.emailText = _this.email;
-                  _this.$store.state.subSucc = true;
-                  _this.emailTF = true;
+                  _this[0].$store.state.emailText = _this[0].email;
+                  _this[0].$store.state.subSucc = true;
+                  _this[0].emailTF = true;
                 },
                 fail: function(err) {
-                  _this.emailTF = true;
+                  _this[0].emailTF = true;
                 }
             })
           },
@@ -75,9 +75,9 @@ export default {
             console.error("can not get token");
           }
         });
-        this.$store.state.footerEmail = false;
+        _this[0].$store.state.footerEmail = false;
       } else {
-        this.$store.state.footerEmail = true;
+        _this[0].$store.state.footerEmail = true;
       }
     }
   }
