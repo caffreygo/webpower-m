@@ -28,7 +28,7 @@ export default {
     }).then(res => {
         this.detail = res.data.article.detail;
         this.title = res.data.article.title;
-      }).then(err => {});
+    }).catch(err => {});
   }
 };
 </script>

@@ -32,53 +32,77 @@ export default {
       email: "",
       emailTF: true,
       token: "",
-      id: "",
-      data: null
+      id: ""
     };
   },
   methods: {
     emailCheck: function() {
       let re = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
-      var _this = $(this);
       if (re.test(this.email) && this.emailTF) {
-        _this.data = {
-          contact: {
-            email: this.email,
-            lang: "zh"
-          }
-        };
-        $.ajax({
-          url: "http://m.webpowerchina.kooboo.site/user/subscribe",
-          method: "get",
-          success: function(res) {
+        this.$ajax.get('/user/subscribe').then(res => {
+          this.token = JSON.parse(res).access_token
+          this.postUser()
+        })
+        // _this.data = {
+        //   contact: {
+        //     email: this.email,
+        //     lang: "zh"
+        //   }
+        // };
+        // $.ajax({
+        //   url: "http://m.webpowerchina.kooboo.site/user/subscribe",
+        //   method: "get",
+        //   success: function(res) {
 
-            // add contact
-            _this.token = JSON.parse(res).access_token
-            $.ajax({
-                url: "https://wpcn-enews.webpower.asia/admin/api/index.php/rest/212/contact/subscribe",
-                method: 'post',
-                data: JSON.stringify(_this.data),
-                beforeSend: function(request) {
-                  request.setRequestHeader("Authorization", "Bearer " + _this.token);
-                },
-                success: function(res) {
-                  _this[0].$store.state.emailText = _this[0].email;
-                  _this[0].$store.state.subSucc = true;
-                  _this[0].emailTF = true;
-                },
-                fail: function(err) {
-                  _this[0].emailTF = true;
-                }
-            })
-          },
-          fail: function(err) {
-            console.error("can not get token");
-          }
-        });
-        _this[0].$store.state.footerEmail = false;
+        //     // add contact
+        //     _this.token = JSON.parse(res).access_token
+        //     $.ajax({
+        //         url: "https://wpcn-enews.webpower.asia/admin/api/index.php/rest/212/contact/subscribe",
+        //         method: 'post',
+        //         data: JSON.stringify(_this.data),
+        //         beforeSend: function(request) {
+        //           request.setRequestHeader("Authorization", "Bearer " + _this.token);
+        //         },
+        //         success: function(res) {
+        //           _this[0].$store.state.emailText = _this[0].email;
+        //           _this[0].$store.state.subSucc = true;
+        //           _this[0].emailTF = true;
+        //         },
+        //         fail: function(err) {
+        //           _this[0].emailTF = true;
+        //         }
+        //     })
+        //   },
+        //   fail: function(err) {
+        //     console.error("can not get token");
+        //   }
+        // });
+        this.$store.state.footerEmail = false;
       } else {
-        _this[0].$store.state.footerEmail = true;
+        this.$store.state.footerEmail = true;
       }
+    },
+    postUser () {
+      const data = {
+        contact: {
+          email: this.email,
+          lang: "zh"
+        }
+      }
+      this.$ajax({
+        method: 'post',
+        url: 'https://wpcn-enews.webpower.asia/admin/api/index.php/rest/212/contact/subscribe',
+        data: JSON.stringify(data),
+        headers: {'Authorization':'Bearer '+this.token}
+      }).then( res => {
+        console.log(res)
+        console.log(this)
+        this.$store.state.emailText = this.email;
+        this.$store.state.subSucc = true;
+        this.emailTF = true;
+      }).catch( err=> {
+        this.emailTF = true;
+      })
     }
   }
 };
