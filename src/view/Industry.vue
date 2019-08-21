@@ -34,6 +34,7 @@ export default {
     data () {
         return {
             pcUrl: 'http://www.webpowerchina.kooboo.site',
+            dataUrl: '/wp-json/wp/v2/posts',
             navName: [
                 {
                     name: '全部',
@@ -62,7 +63,7 @@ export default {
         };
     },
     mounted(){
-        this.$ajax.get('wp/v2/posts',{
+        this.$ajax.get(this.dataUrl,{
             params: {
                 order: 'desc',
                 orderby: 'date',
@@ -85,7 +86,7 @@ export default {
 
             switch(index){
                 case 0:
-                this.$ajax.get('wp/v2/posts',{
+                this.$ajax.get(this.dataUrl,{
                     params: {
                         order: 'desc',
                         orderby: 'date',
@@ -95,13 +96,10 @@ export default {
                     }
                 }).then(res => {
                     this.dataList = res.data;
-                })
-                .catch(err => {
-
-                });
+                }).catch(err => {});
                 break;
                 case 1:
-                    this.$ajax.get('wp/v2/posts',{
+                    this.$ajax.get(this.dataUrl,{
                         params: {
                             order: 'desc',
                             orderby: 'date',
@@ -117,7 +115,7 @@ export default {
                     });
                     break;
                 case 2:
-                    this.$ajax.get('wp/v2/posts',{
+                    this.$ajax.get(this.dataUrl,{
                         params: {
                             order: 'desc',
                             orderby: 'date',
@@ -133,7 +131,7 @@ export default {
                     });
                     break;
                 case 3:
-                    this.$ajax.get('wp/v2/posts',{
+                    this.$ajax.get(this.dataUrl,{
                         params: {
                             order: 'desc',
                             orderby: 'date',
@@ -149,7 +147,7 @@ export default {
                     });
                     break;
                 case 4:
-                    this.$ajax.get('wp/v2/posts',{
+                    this.$ajax.get(this.dataUrl,{
                         params: {
                             order: 'desc',
                             orderby: 'date',
@@ -165,7 +163,7 @@ export default {
                     });
                     break;
                 case 5:
-                    this.$ajax.get('wp/v2/posts',{
+                    this.$ajax.get(this.dataUrl,{
                         params: {
                             order: 'desc',
                             orderby: 'date',
@@ -181,7 +179,7 @@ export default {
                     });
                     break;
                 case 6:
-                this.$ajax.get('wp/v2/posts',{
+                this.$ajax.get(this.dataUrl,{
                     params: {
                         order: 'desc',
                         orderby: 'date',

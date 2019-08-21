@@ -8,8 +8,8 @@ import store from './store'
 import $ from 'jquery'
 import axios from 'axios'
 Vue.prototype.$ajax = axios.create({
-  baseURL: 'http://m.webpowerchina.kooboo.site/wp-json',
-  timeout: 8000,
+  baseURL: 'http://m.webpowerchina.kooboo.site',
+  timeout: 5000,
 });
 
 Vue.use(Vuex)

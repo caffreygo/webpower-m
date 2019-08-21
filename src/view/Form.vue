@@ -56,7 +56,8 @@
                 phoneTF: '',
                 pinTF:'',
                 pinSendTF: false,
-                pinTetx: '获取验证码',
+                pinTetx: '获取验证码'
+                
             };
         },
         methods:{
@@ -141,7 +142,7 @@
                             //验证码ajax
                             this.$ajax({
                                 method: 'get',
-                                url: '/sms/v1/send',
+                                url: 'http://www.webpowerchina.kooboo.site/wp-json/sms/v1/send',
                                 params: {
                                     tel: this.phoneText
                                 },
@@ -166,11 +167,27 @@
                 this.mailBlur();
                 this.phoneBlur();
                 this.pinBlur();
+
+                // 手机验证码判断
+                if(!this.pinErr) {
+                    this.$ajax({
+                        method: 'get',
+                        url: 'http://www.webpowerchina.kooboo.site/wp-json/sms/v1/valid?tel=' + this.phoneText + '&code=' + this.pinText
+                    }).then(res => {
+                        if(res.data.status === 'success'){
+                            this.postUser()
+                        } else {
+                            this.pinErr = true
+                        }
+                    })
+                }
+                
+            },
+            postUser() {
                 if(!this.companyErr && !this.nameErr && !this.mailerr && !this.phoneErr && !this.pinErr){
                     this.$store.state.loading = true;
                     this.$ajax({
                         method: 'post',
-                        url: '/contact-form-7/v1/contact-forms/90/feedback',
                         headers:{
                             'Content-Type': 'application/x-www-form-urlencoded'
                         },
@@ -178,58 +195,27 @@
                             data = Qs.stringify(data);
                             return data;
                         }],
+                        url: 'http://www.webpowerchina.kooboo.site/wp-json/contact-form-7/v1/contact-forms/92/feedback',
                         data: {
-                            _wpcf7: '90',
-                            _wpcf7_container_post: '0',
-                            _wpcf7_locale: 'zh_CN',
-                            _wpcf7_unit_tag: 'wpcf7-f90-o1',
-                            _wpcf7_version: '5.0.3',
-                            'campaign': this.$store.state.fromLink,
-                            'sms-code': this.pinText,
-                            'your-companyName': this.companyText,
-                            'your-email': this.mailText,
-                            'your-name': this.nameText,
-                            'your-tel': this.phoneText
+                            name: this.nameText,
+                            industry: '来自mobile端的试用申请',
+                            email: this.mailText,
+                            tel: this.phoneText,
+                            companyName: this.companyText
                         }
                     }).then(res => {
                         this.$store.state.loading = false;
                         if(res.data.status == 'mail_sent'){
                             this.$store.state.formsubSucc = true;
-                        }else if(res.data.status == 'validation_failed'){
-                            for(let i = 0; i < res.data.invalidFields.length; i++){
-                                let text =  res.data.invalidFields[i].into.split('.');
-                                switch(text[text.length-1]){
-                                    case 'campaign':
-
-                                        break;
-                                    case 'sms-code':
-                                        this.pinTF = '验证码不正确';
-                                        this.pinErr = true;
-                                        break;
-                                    case 'your-companyName':
-
-                                        break;
-                                    case 'your-email':
-                                        this.mailTF = '邮箱格式不正确';
-                                        this.mailErr = true;
-                                        break;
-                                    case 'your-name':
-
-                                        break;
-                                    case 'your-tel':
-                                        this.phoneTF = '手机号格式不正确';
-                                        this.phoneErr = true;
-                                        break;
-                                }
-                            }
                         }
                     }).catch(err => {
+                        this.$store.state.loading = false;
                         this.$store.state.formsubFail = true;
                     })
                 }
             }
         },
-        mounted:function(){
+        mounted () {
 
         }
     }

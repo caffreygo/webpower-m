@@ -33,13 +33,9 @@ export default {
     },
 
     mounted(){
-        this.$ajax({
-            method: 'get',
-            url: 'http://m.webpowerchina.kooboo.site/service/get'
-        }).then(res => {
+        this.$ajax.get('/service/get').then(res => {
             this.data = res.data
-        }).then(err => {
-        })
+        }).then(err => {})
     }
 
 }

@@ -33,15 +33,12 @@ export default {
     },
 
     mounted(){
-        this.$ajax({
-            method: 'get',
-            url: 'http://m.webpowerchina.kooboo.site/social/get'
-        }).then(res => {
+        this.$ajax.get('/social/get').then(res => {
             this.data = res.data
         }).then(err => {
+
         })
     }
-
 }
 </script>
 <style lang='scss' scoped>
