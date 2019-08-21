@@ -42,7 +42,6 @@ export default {
         this.$ajax.get('/user/subscribe').then(res => {
           this.token = res.data.access_token
           this.postUser(this.token)
-          console.log(this.token)
         })
         this.$store.state.footerEmail = false;
       } else {
