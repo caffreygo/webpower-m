@@ -23,7 +23,7 @@
                     </li>
                 </router-link>
             </ul>
-            
+
         </div>
     </div>
 </template>
@@ -56,9 +56,12 @@ export default {
                 },
                 {
                     name: '零售'
+                },
+                {
+                    name: '其他'
                 }
             ],
-            navActive: [1,0,0,0,0,0,0],
+            navActive: [1,0,0,0,0,0,0,0],
             dataList: []
         };
     },
@@ -69,7 +72,7 @@ export default {
                 orderby: 'date',
                 page: '1',
                 per_page: '8',
-                tags: '66,67,68,69,77,78'
+                tags: 'all'
             }
         }).then(res => {
             this.dataList = res.data;
@@ -80,7 +83,7 @@ export default {
     },
     methods:{
         cheakOutNav(index){
-            this.navActive = [0,0,0,0,0,0,0];
+            this.navActive = [0,0,0,0,0,0,0,0];
             this.navActive[index] = 1;
             this.contentIndex = index;
 
@@ -92,7 +95,7 @@ export default {
                         orderby: 'date',
                         page: '1',
                         per_page: '8',
-                        tags: '66,67,68,69,77,78'
+                        tags: 'all'
                     }
                 }).then(res => {
                     this.dataList = res.data;
@@ -105,7 +108,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: '67'
+                            tags: 'show'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -121,7 +124,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: '77'
+                            tags: 'commerce'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -137,7 +140,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: '68'
+                            tags: 'foreignCommerce'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -153,7 +156,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: '78'
+                            tags: 'edu'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -169,7 +172,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: '69'
+                            tags: 'trip'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -179,21 +182,37 @@ export default {
                     });
                     break;
                 case 6:
-                this.$ajax.get(this.dataUrl,{
-                    params: {
-                        order: 'desc',
-                        orderby: 'date',
-                        page: '1',
-                        per_page: '8',
-                        tags: '66'
-                    }
-                }).then(res => {
-                    this.dataList = res.data;
-                })
-                .catch(err => {
+                    this.$ajax.get(this.dataUrl,{
+                        params: {
+                            order: 'desc',
+                            orderby: 'date',
+                            page: '1',
+                            per_page: '8',
+                            tags: 'retail'
+                        }
+                    }).then(res => {
+                        this.dataList = res.data;
+                    })
+                    .catch(err => {
 
-                });
-                break;
+                    });
+                    break;
+                case 7:
+                    this.$ajax.get(this.dataUrl,{
+                        params: {
+                            order: 'desc',
+                            orderby: 'date',
+                            page: '1',
+                            per_page: '8',
+                            tags: 'other'
+                        }
+                    }).then(res => {
+                        this.dataList = res.data;
+                    })
+                    .catch(err => {
+
+                    });
+                    break;
             }
         }
     }
@@ -258,7 +277,7 @@ export default {
                     // overflow: hidden;
                     height: 80px;
                     line-height: 80px;
-                    width: 980px;
+                    width: 1100px;
 
                     li{
                         float: left;
