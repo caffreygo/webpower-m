@@ -81,8 +81,10 @@ export default {
 
     & /deep/ img {
       display: block;
-      margin: 40px auto;
-      max-width: 80%;
+      margin: 5px auto;
+      max-width: 90%;
+      height: auto !important;
+      width: 280px !important;
     }
   }
 
