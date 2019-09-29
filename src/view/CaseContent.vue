@@ -84,7 +84,6 @@ export default {
       margin: 5px auto;
       max-width: 90%;
       height: auto !important;
-      width: 280px !important;
     }
   }
 
