@@ -16,7 +16,7 @@
         </div>
         <div class="content-box">
             <ul class="content-list">
-                <router-link :to= "{ path: '/case/CaseContent', query: { slug: item.slug }}" v-for="(item, index) in dataList" :key="index">
+                <router-link :to= "{ path: '/case/CaseContent', query: { slug: item.userKey }}" v-for="(item, index) in dataList" :key="index">
                     <li>
                         <img :src="pcUrl + item.img_src" alt="">
                         <p>{{item.title}}</p>

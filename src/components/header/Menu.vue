@@ -71,6 +71,10 @@ export default {
                         {
                             name: '大事记',
                             router: '/about#memorabilia'
+                        },
+                        {
+                            name: '公司新闻',
+                            router: '/about/news'
                         }
                     ]
                 }

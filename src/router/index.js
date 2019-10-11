@@ -12,7 +12,8 @@ import Sms from '@/view/automation/Sms'                 //短信营销
 import Wechat from '@/view/automation/Wechat'           //微信营销
 import About from '@/view/About'                        //关于我们（公司介绍）
 import Industry from '@/view/Industry'                  //行业案例
-import CaseContent from '@/view/CaseContent'                          //新闻详情
+import CaseContent from '@/view/CaseContent'            //案例详情
+import News from '@/view/News'                          //公司新闻
 import Client from '@/view/client'
 
 Vue.use(Router)
@@ -74,6 +75,11 @@ export default new Router({
             path: '/about',
             name: 'About',
             component: About
+        },
+        {
+            path: '/about/news',
+            name: 'News',
+            component: News
         },
         {
             path: '/case/industry',
