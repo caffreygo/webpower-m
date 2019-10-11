@@ -14,6 +14,7 @@ import About from '@/view/About'                        //关于我们（公司�
 import Industry from '@/view/Industry'                  //行业案例
 import CaseContent from '@/view/CaseContent'            //案例详情
 import News from '@/view/News'                          //公司新闻
+import Knowledge from '@/view/Knowledge'                //营销锦囊
 import Client from '@/view/client'
 
 Vue.use(Router)
@@ -80,6 +81,11 @@ export default new Router({
             path: '/about/news',
             name: 'News',
             component: News
+        },
+        {
+            path: '/knowledge',
+            name: 'Knowledge',
+            component: Knowledge
         },
         {
             path: '/case/industry',

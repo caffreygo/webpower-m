@@ -2,11 +2,20 @@
 <template>
     <div class="menu-box" v-show="$store.state.menuShow" @click="$store.state.menuShow = false">
         <div class="menu-list" :class="{active: menuBGColor[index]}" v-for="(item, index) in menuData" :key="index" @click.stop="menuChange(index)">
-            <div class="menu-list-box">
+            <div v-if="item.data.length > 1" class="menu-list-box">
                 <span class="menu-bigTitle">{{item.name}}</span>
                 <img :src="menuOpen[index]?'/static/img/upBtn.png':'/static/img/downBtn.png'" alt="" class="downImg">
             </div>
-            <div class="menu-down-list-box" v-show="menuOpen[index]" >
+            <!-- 无下拉子项 -->
+            <template v-else>
+                <router-link :to="item.data[0].router">
+                    <div class="menu-list-box" @click.stop="$store.state.menuShow = false;$store.state.linkText = item.data[0].name;">
+                        <span class="menu-bigTitle">{{item.name}}</span>
+                    </div>
+                </router-link>
+            </template>
+
+            <div v-if="item.data.length > 1" class="menu-down-list-box" v-show="menuOpen[index]" >
                 <router-link :to="downItem.router" v-for="(downItem, index) in item.data" :key="index">
                     <div class="menu-down-list" @click.stop="$store.state.menuShow = false;$store.state.linkText = downItem.name;">
                         <span class="menu-downTitle" >{{downItem.name}}</span>
@@ -62,6 +71,15 @@ export default {
                     ]
                 },
                 {
+                    name: '营销锦囊',
+                    data:[
+                        {
+                            name: '营销锦囊',
+                            router: '/knowledge'
+                        }
+                    ]
+                },
+                {
                     name: '关于我们',
                     data:[
                         {
@@ -79,26 +97,21 @@ export default {
                     ]
                 }
             ],
-            menuOpen:[0,0,0],
-            menuBGColor: [0,0,0]
+            menuOpen:[0,0,0,0],
+            menuBGColor: [0,0,0,0]
         };
     },
     methods:{
         menuChange:function(index){
             if(this.menuOpen[index] == 1){
-                this.menuOpen = [0,0,0];
+                this.menuOpen = [0,0,0,0];
                 this.menuBGColor[index] = 0;
             }else if(this.menuOpen[index] == 0){
-                this.menuOpen = [0,0,0];
-                this.menuBGColor = [0,0,0];
+                this.menuOpen = [0,0,0,0];
+                this.menuBGColor = [0,0,0,0];
                 this.menuBGColor[index] = true;
                 this.menuOpen[index] = 1;
-                
             }
-           
-        },
-        abc:function(){
-
         }
     }
 }

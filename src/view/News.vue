@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: "",
+  name: "News",
   data() {
     return {
       pcUrl: "http://www.webpowerchina.kooboo.site",
@@ -31,9 +31,9 @@ export default {
     };
   },
   mounted() {
-      this.$ajax.get('/news/get').then(res => {
-        this.dataList = res.data;
-      }).catch(err => {});
+    this.$ajax.get('/news/get').then(res => {
+      this.dataList = res.data;
+    }).catch(err => {});
   }
 };
 </script>
