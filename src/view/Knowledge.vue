@@ -23,7 +23,6 @@
                     </li>
                 </router-link>
             </ul>
-
         </div>
     </div>
 </template>
@@ -33,16 +32,17 @@ export default {
     name: '',
     data () {
         return {
-            pcUrl: 'http://www.webpowerchina.kooboo.site',
+            pcUrl: "http://www.webpowerchina.kooboo.site",
+            dataUrl: '/knowledge/get',
             navName: [
                 {
                     name: '全部',
                 },
                 {
-                    name: '观点',
+                    name: '案例'
                 },
                 {
-                    name: '案例'
+                    name: '观点',
                 }
             ],
             navActive: [1,0,0],
@@ -78,7 +78,7 @@ export default {
                 case 1:
                     this.$ajax.get(this.dataUrl,{
                         params: {
-                            tags: 'trip'
+                            tags: 'case'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -90,7 +90,7 @@ export default {
                 case 2:
                     this.$ajax.get(this.dataUrl,{
                         params: {
-                            tags: 'retail'
+                            tags: 'point'
                         }
                     }).then(res => {
                         this.dataList = res.data;
