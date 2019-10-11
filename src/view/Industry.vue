@@ -40,6 +40,12 @@ export default {
                     name: '全部',
                 },
                 {
+                    name: '酒店旅游',
+                },
+                {
+                    name: '零售'
+                },
+                {
                     name: '会展',
                 },
                 {
@@ -50,12 +56,6 @@ export default {
                 },
                 {
                     name: '教育',
-                },
-                {
-                    name: '酒店旅游',
-                },
-                {
-                    name: '零售'
                 },
                 {
                     name: '其他'
@@ -108,7 +108,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: 'show'
+                            tags: 'trip'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -124,7 +124,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: 'commerce'
+                            tags: 'retail'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -140,7 +140,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: 'foreignCommerce'
+                            tags: 'show'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -156,7 +156,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: 'edu'
+                            tags: 'commerce'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -172,7 +172,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: 'trip'
+                            tags: 'foreignCommerce'
                         }
                     }).then(res => {
                         this.dataList = res.data;
@@ -188,7 +188,7 @@ export default {
                             orderby: 'date',
                             page: '1',
                             per_page: '8',
-                            tags: 'retail'
+                            tags: 'edu'
                         }
                     }).then(res => {
                         this.dataList = res.data;
