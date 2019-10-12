@@ -7,7 +7,8 @@
     </div>
 
     <div class="content-box">
-      <ul class="content-list">
+      <div v-if="loading" class="loading-box"><img src="/static/img/loading.gif" alt=""></div>
+      <ul v-else class="content-list" >
         <router-link :to="{ path: '/case/CaseContent', query: { slug: item.userKey }}"
           v-for="(item, index) in dataList" :key="index">
           <li>
@@ -26,6 +27,7 @@ export default {
   name: "News",
   data() {
     return {
+      loading: true,
       pcUrl: "http://www.webpowerchina.kooboo.site",
       dataList: []
     };
@@ -33,6 +35,7 @@ export default {
   mounted() {
     this.$ajax.get('/news/get').then(res => {
       this.dataList = res.data;
+      this.loading = false;
     }).catch(err => {});
   }
 };
@@ -71,6 +74,18 @@ export default {
   .content-box {
     width: 100%;
     min-height: 600px;
+
+    .loading-box {
+      display: flex;
+      height: 400px;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 64px;
+        height: 64px;
+      }
+    }
 
     .content-list {
       width: 100%;

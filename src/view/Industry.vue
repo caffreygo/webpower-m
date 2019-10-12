@@ -15,7 +15,8 @@
             <div class="head-tabcover"></div>
         </div>
         <div class="content-box">
-            <ul class="content-list">
+            <div v-if="loading" class="loading-box"><img src="/static/img/loading.gif" alt=""></div>
+            <ul  v-else class="content-list" >
                 <router-link :to= "{ path: '/case/CaseContent', query: { slug: item.userKey }}" v-for="(item, index) in dataList" :key="index">
                     <li>
                         <img :src="pcUrl + item.img_src" alt="">
@@ -33,187 +34,70 @@ export default {
     name: '',
     data () {
         return {
+            loading: true,
             pcUrl: 'http://www.webpowerchina.kooboo.site',
             dataUrl: '/wp-json/wp/v2/posts',
             navName: [
                 {
                     name: '全部',
+                    tags: 'all'
                 },
                 {
                     name: '酒店旅游',
+                    tags: 'trip'
                 },
                 {
-                    name: '零售'
+                    name: '零售',
+                    tags: 'retail'
                 },
                 {
                     name: '会展',
+                    tags: 'show'
                 },
                 {
                     name: '国内电商',
+                    tags: 'commerce'
                 },
                 {
                     name: '跨境电商',
+                    tags: 'foreignCommerce'
                 },
                 {
                     name: '教育',
+                    tags: 'edu'
                 },
                 {
-                    name: '其他'
+                    name: '其他',
+                    tags: 'other'
                 }
             ],
             navActive: [1,0,0,0,0,0,0,0],
             dataList: []
         };
     },
-    mounted(){
-        this.$ajax.get(this.dataUrl,{
-            params: {
-                order: 'desc',
-                orderby: 'date',
-                page: '1',
-                per_page: '8',
-                tags: 'all'
-            }
-        }).then(res => {
-            this.dataList = res.data;
-        })
-        .catch(err => {
-
-        });
+    mounted () {
+        this.getData('all');
     },
     methods:{
+        getData (tag) {
+            this.$ajax.get(this.dataUrl,{
+                params: {
+                    tags: tag
+                }
+            })
+            .then(res => {
+                this.dataList = res.data;
+                this.loading = false;
+            })
+            .catch(err => {});
+        },
         cheakOutNav(index){
+            this.loading = true;
             this.navActive = [0,0,0,0,0,0,0,0];
             this.navActive[index] = 1;
             this.contentIndex = index;
-
-            switch(index){
-                case 0:
-                this.$ajax.get(this.dataUrl,{
-                    params: {
-                        order: 'desc',
-                        orderby: 'date',
-                        page: '1',
-                        per_page: '8',
-                        tags: 'all'
-                    }
-                }).then(res => {
-                    this.dataList = res.data;
-                }).catch(err => {});
-                break;
-                case 1:
-                    this.$ajax.get(this.dataUrl,{
-                        params: {
-                            order: 'desc',
-                            orderby: 'date',
-                            page: '1',
-                            per_page: '8',
-                            tags: 'trip'
-                        }
-                    }).then(res => {
-                        this.dataList = res.data;
-                    })
-                    .catch(err => {
-
-                    });
-                    break;
-                case 2:
-                    this.$ajax.get(this.dataUrl,{
-                        params: {
-                            order: 'desc',
-                            orderby: 'date',
-                            page: '1',
-                            per_page: '8',
-                            tags: 'retail'
-                        }
-                    }).then(res => {
-                        this.dataList = res.data;
-                    })
-                    .catch(err => {
-
-                    });
-                    break;
-                case 3:
-                    this.$ajax.get(this.dataUrl,{
-                        params: {
-                            order: 'desc',
-                            orderby: 'date',
-                            page: '1',
-                            per_page: '8',
-                            tags: 'show'
-                        }
-                    }).then(res => {
-                        this.dataList = res.data;
-                    })
-                    .catch(err => {
-
-                    });
-                    break;
-                case 4:
-                    this.$ajax.get(this.dataUrl,{
-                        params: {
-                            order: 'desc',
-                            orderby: 'date',
-                            page: '1',
-                            per_page: '8',
-                            tags: 'commerce'
-                        }
-                    }).then(res => {
-                        this.dataList = res.data;
-                    })
-                    .catch(err => {
-
-                    });
-                    break;
-                case 5:
-                    this.$ajax.get(this.dataUrl,{
-                        params: {
-                            order: 'desc',
-                            orderby: 'date',
-                            page: '1',
-                            per_page: '8',
-                            tags: 'foreignCommerce'
-                        }
-                    }).then(res => {
-                        this.dataList = res.data;
-                    })
-                    .catch(err => {
-
-                    });
-                    break;
-                case 6:
-                    this.$ajax.get(this.dataUrl,{
-                        params: {
-                            order: 'desc',
-                            orderby: 'date',
-                            page: '1',
-                            per_page: '8',
-                            tags: 'edu'
-                        }
-                    }).then(res => {
-                        this.dataList = res.data;
-                    })
-                    .catch(err => {
-
-                    });
-                    break;
-                case 7:
-                    this.$ajax.get(this.dataUrl,{
-                        params: {
-                            order: 'desc',
-                            orderby: 'date',
-                            page: '1',
-                            per_page: '8',
-                            tags: 'other'
-                        }
-                    }).then(res => {
-                        this.dataList = res.data;
-                    })
-                    .catch(err => {
-
-                    });
-                    break;
-            }
+            let tag = this.navName[index].tags;
+            this.getData(tag);
         }
     }
 }
@@ -315,6 +199,19 @@ export default {
         .content-box{
             width: 100%;
             min-height: 600px;
+
+            .loading-box {
+                display: flex;
+                height: 400px;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    width: 64px;
+                    height: 64px;
+                }
+            }
+
 
             .content-list{
                 width: 100%;

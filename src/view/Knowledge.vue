@@ -20,7 +20,8 @@
       <div class="head-tabcover"></div>
     </div>
     <div class="content-box">
-      <ul class="content-list">
+      <div v-if="loading" class="loading-box"><img src="/static/img/loading.gif" alt=""></div>
+      <ul  v-else class="content-list" >
         <router-link
           :to="{ path: '/case/CaseContent', query: { slug: item.userKey }}"
           v-for="(item, index) in dataList"
@@ -41,77 +42,51 @@ export default {
   name: "",
   data() {
     return {
+      loading: true,
       pcUrl: "http://www.webpowerchina.kooboo.site",
       dataUrl: "/knowledges/get",
       navName: [
         {
-          name: "全部"
+          name: "全部",
+          tags: 'all'
+
         },
         {
-          name: "案例"
+          name: "案例",
+          tags: 'case'
         },
         {
-          name: "观点"
+          name: "观点",
+          tags: 'point'
         }
       ],
       navActive: [1, 0, 0],
       dataList: []
     };
   },
-  created() {
-    this.$ajax.get(this.dataUrl,{
-        params: {
-            tags: 'all'
-        }
-    }).then(res => {
-        this.dataList = res.data;
-    })
-    .catch(err => {});
+  mounted () {
+    this.getData('all');
   },
   methods: {
+    getData (tag) {
+      this.$ajax.get(this.dataUrl,{
+          params: {
+              tags: tag
+          }
+      })
+      .then(res => {
+        this.dataList = res.data;
+        this.loading = false;
+      })
+      .catch(err => {});
+    },
     cheakOutNav(index) {
+      this.loading = true;
       this.navActive = [0, 0, 0];
       this.navActive[index] = 1;
       this.contentIndex = index;
-
-      switch (index) {
-        case 0:
-          this.$ajax
-            .get(this.dataUrl, {
-              params: {
-                tags: "all"
-              }
-            })
-            .then(res => {
-              this.dataList = res.data;
-            })
-            .catch(err => {});
-          break;
-        case 1:
-          this.$ajax
-            .get(this.dataUrl, {
-              params: {
-                tags: "case"
-              }
-            })
-            .then(res => {
-              this.dataList = res.data;
-            })
-            .catch(err => {});
-          break;
-        case 2:
-          this.$ajax
-            .get(this.dataUrl, {
-              params: {
-                tags: "point"
-              }
-            })
-            .then(res => {
-              this.dataList = res.data;
-            })
-            .catch(err => {});
-          break;
-      }
+      let tag = this.navName[index].tags;
+      this.getData(tag)
     }
   }
 };
@@ -210,6 +185,18 @@ export default {
   .content-box {
     width: 100%;
     min-height: 600px;
+
+    .loading-box {
+      display: flex;
+      height: 400px;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 64px;
+        height: 64px;
+      }
+    }
 
     .content-list {
       width: 100%;
