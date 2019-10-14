@@ -142,7 +142,7 @@
                             //验证码ajax
                             this.$ajax({
                                 method: 'get',
-                                url: 'http://www.webpowerchina.kooboo.site/wp-json/sms/v1/send',
+                                url: 'http://www.webpowerchina.com/wp-json/sms/v1/send',
                                 params: {
                                     tel: this.phoneText
                                 },
@@ -172,7 +172,7 @@
                 if(!this.pinErr) {
                     this.$ajax({
                         method: 'get',
-                        url: 'http://www.webpowerchina.kooboo.site/wp-json/sms/v1/valid?tel=' + this.phoneText + '&code=' + this.pinText
+                        url: 'http://www.webpowerchina.com/wp-json/sms/v1/valid?tel=' + this.phoneText + '&code=' + this.pinText
                     }).then(res => {
                         if(res.data.status === 'success'){
                             this.postUser()
@@ -195,7 +195,7 @@
                             data = Qs.stringify(data);
                             return data;
                         }],
-                        url: 'http://www.webpowerchina.kooboo.site/wp-json/contact-form-7/v1/contact-forms/92/feedback',
+                        url: 'http://www.webpowerchina.com/wp-json/contact-form-7/v1/contact-forms/92/feedback',
                         data: {
                             name: this.nameText,
                             industry: '来自mobile端的试用申请',

@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       loading: true,
-      pcUrl: "http://www.webpowerchina.kooboo.site",
+      pcUrl: "http://www.webpowerchina.com",
       dataUrl: "/knowledges/get",
       navName: [
         {

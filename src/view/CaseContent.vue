@@ -24,7 +24,7 @@ export default {
   mounted() {
     this.$ajax({
       method: "get",
-      url: "http://www.webpowerchina.kooboo.site/api/textContents/get?slug=" + this.$route.query.slug
+      url: "http://www.webpowerchina.com/api/textContents/get?slug=" + this.$route.query.slug
     }).then(res => {
         this.detail = res.data.article.detail;
         this.title = res.data.article.title;
