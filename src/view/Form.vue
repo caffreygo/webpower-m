@@ -26,11 +26,11 @@
             </div>
             <p v-show="phoneErr">{{phoneTF}}</p>
 
-            <div class="pin inputs">
+            <!-- <div class="pin inputs">
                 <input type="text" placeholder="请填写手机验证码" v-model="pinText" @blur="pinBlur">
-                <div class="pinBtn" :class="{sendOver: pinSendTF}" @click="pinSend">{{pinTetx}}</div>
+                <div class="pinBtn" :class="{sendOver: pinSendTF}" @click="pinSend">{{pinText}}</div>
             </div>
-            <p v-show="pinErr">{{pinTF}}</p>
+            <p v-show="pinErr">{{pinTF}}</p> -->
         </div>
         <div class="subForm" @click="subAjax">提&nbsp;&nbsp;交</div>
     </div>
@@ -56,7 +56,7 @@
                 phoneTF: '',
                 pinTF:'',
                 pinSendTF: false,
-                pinTetx: '获取验证码'
+                pinText: '获取验证码'
                 
             };
         },
@@ -127,16 +127,16 @@
                         if(!this.pinSendTF){
                             this.pinSendTF = true;
                             let times = 59;
-                            this.pinTetx = '剩余59秒';
+                            this.pinText = '剩余59秒';
                             let timer = setInterval(()=>{
                                 if(times == 1){
                                     clearInterval(timer);
-                                    this.pinTetx = '获取验证码';
+                                    this.pinText = '获取验证码';
                                     this.pinSendTF = false;
                                     return;
                                 }
                                 times--;
-                                this.pinTetx = '剩余' + times + '秒'
+                                this.pinText = '剩余' + times + '秒'
                             },1000)
 
                             //验证码ajax
@@ -166,25 +166,26 @@
                 this.nameBlur();
                 this.mailBlur();
                 this.phoneBlur();
-                this.pinBlur();
+                // this.pinBlur();
+                this.postUser();
 
                 // 手机验证码判断
-                if(!this.pinErr) {
-                    this.$ajax({
-                        method: 'get',
-                        url: 'http://www.webpowerchina.com/wp-json/sms/v1/valid?tel=' + this.phoneText + '&code=' + this.pinText
-                    }).then(res => {
-                        if(res.data.status === 'success'){
-                            this.postUser()
-                        } else {
-                            this.pinErr = true
-                        }
-                    })
-                }
+                // if(!this.pinErr) {
+                //     this.$ajax({
+                //         method: 'get',
+                //         url: 'http://www.webpowerchina.com/wp-json/sms/v1/valid?tel=' + this.phoneText + '&code=' + this.pinText
+                //     }).then(res => {
+                //         if(res.data.status === 'success'){
+                //             this.postUser()
+                //         } else {
+                //             this.pinErr = true
+                //         }
+                //     })
+                // }
                 
             },
             postUser() {
-                if(!this.companyErr && !this.nameErr && !this.mailerr && !this.phoneErr && !this.pinErr){
+                if(!this.companyErr && !this.nameErr && !this.mailerr && !this.phoneErr){
                     this.$store.state.loading = true;
                     this.$ajax({
                         method: 'post',
@@ -214,9 +215,6 @@
                     })
                 }
             }
-        },
-        mounted () {
-
         }
     }
 </script>
