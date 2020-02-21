@@ -11,6 +11,19 @@
             </div>
             <p v-show="companyErr">请填写公司名称</p>
 
+            <select class="select-field" :class="{'no-value':industry===''}" v-model="industry"> 
+                <option value ="">-- 请选择所属行业 --</option>
+                <option value ="国内零售">国内零售</option>
+                <option value ="国内电商">国内电商</option>
+                <option value ="酒店旅游">酒店旅游</option>
+                <option value ="跨境电商">跨境电商</option>
+                <option value ="B2B">B2B</option>
+                <option value ="文化娱乐">文化娱乐</option>
+                <option value ="教育培训">教育培训</option>
+                <option value ="金融保险">金融保险</option>
+                <option value ="其他">其他</option>
+            </select>
+
             <div class="name inputs">
                 <input type="text" placeholder="请填写您的姓名" v-model="nameText" @blur="nameBlur">
             </div>
@@ -25,6 +38,19 @@
                 <input type="text" placeholder="请填写您的手机号码" v-model="phoneText" @blur="phoneBlur">
             </div>
             <p v-show="phoneErr">{{phoneTF}}</p>
+
+            <select class="select-field" :class="{'no-value':database===''}" v-model="database"> 
+                <option value ="">-- 贵司的会员数据库规模 --</option>
+                <option value ="2万人以内">2万人以内</option>
+                <option value ="2万~10万人">2万~10万人</option>
+                <option value ="10万人以上">10万人以上</option>
+            </select>
+
+            <select class="select-field" :class="{'no-value':usingSCRM===''}" v-model="usingSCRM"> 
+                <option value ="">-- 是否正在使用SCRM营销自动化工具 --</option>
+                <option value ="是">是</option>
+                <option value ="否">否</option>
+            </select>
 
             <!-- <div class="pin inputs">
                 <input type="text" placeholder="请填写手机验证码" v-model="pinText" @blur="pinBlur">
@@ -52,6 +78,9 @@
                 mailErr: false,
                 phoneErr: false,
                 pinErr: false,
+                industry: '',
+                database: '',
+                usingSCRM: '',
                 mailTF: '',
                 phoneTF: '',
                 pinTF:'',
@@ -199,10 +228,12 @@
                         url: 'http://www.webpowerchina.com/wp-json/contact-form-7/v1/contact-forms/92/feedback',
                         data: {
                             name: this.nameText,
-                            industry: '来自mobile端的试用申请',
+                            industry: this.industry,
                             email: this.mailText,
                             tel: this.phoneText,
-                            companyName: this.companyText
+                            companyName: this.companyText,
+                            database: this.database,
+                            usingSCRM: this.usingSCRM
                         }
                     }).then(res => {
                         this.$store.state.loading = false;
@@ -258,6 +289,34 @@
                 margin-top: 6px;
                 font-size: 20px;
                 color: #eb6100;
+            }
+            &>select.select-field{
+                margin: 19px auto 0;
+                width: 100%;
+                height: 86px;
+                font-size: 30px;
+                padding: 0 30px;
+                background-color: #efefef;
+                border-radius: 4px;
+                color: #999999;
+                border: none;
+
+                &.no-value {
+                    color: rgb(117,117,117)
+                }
+
+                &>option {
+                    width: 100%;
+                    height: 100%;
+                    // background-color: transparent;
+                    box-sizing: border-box;
+                    font-size: 30px;
+                    text-indent: 33px;
+                    color: #999999;
+                    background: none;  
+                    outline: none;  
+                    border: 0px;
+                }
             }
             &>div.inputs{
                 margin: 19px auto 0;
